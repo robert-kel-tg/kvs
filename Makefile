@@ -16,8 +16,8 @@ pack:
 upload:
 	docker push robkel/kvs:$(TAG)
 
-#deploy:
-	#envsubst < k8s/deployment.yml | kubectl apply -f -
+deploy:
+	envsubst < k8s/deployment.yml | kubectl apply -f -
 
 ship: pack upload
 

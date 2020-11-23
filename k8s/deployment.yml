@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kvs
+  labels:
+    app: kvs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kvs
+  template:
+    metadata:
+      labels:
+        app: kvs
+    spec:
+      containers:
+      - name: kvs
+        image: robkel/kvs:${TAG}
+        ports:
+        - containerPort: 8080
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kvs
+spec:
+  type: LoadBalancer
+  selector:
+    app: kvs
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
